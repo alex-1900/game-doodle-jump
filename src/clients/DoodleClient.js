@@ -23,8 +23,7 @@
 
     window.addEventListener('devicemotion', this.deviceMotion.bind(this));
   }
-// 跳板用一个数组管理，里面的元素是一系列数组[x, y与上一个的距离值]
-// 当 doodle 下降时，开始接触检测，检测到与跳板接触后，调整高度，使 doodle 跳起后正好能达到屏幕高度的一半。
+
   extend(DoodleClient, AbstructClient);
 
   DoodleClient.prototype.update = function(timestamp) {

@@ -33,6 +33,9 @@
     <script>
         console.info('Jet Escaper Github Page:\r\nhttps://github.com/speed-sonic/game-jet-escaper');
         console.info('Author:\r\nAlex(omytty.alex@gmail.com)');
+        if(!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            alert('这是手机游戏，请用手机打开，或使用 chrome 的手机模式。');
+        }
     </script>
 </head>
 <body class="full position-fixed">
@@ -103,6 +106,7 @@
                 over.style.display = 'none';
                 viewer.style.display = 'none';
                 wrapper.style.display = 'block';
+                requestFullScreen();
 
                 app.set('images', images);
 

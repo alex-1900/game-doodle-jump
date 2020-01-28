@@ -9,7 +9,6 @@
     var images = app.get('images');
     this.image = images['board'];
     this.boards = boards;
-    // this.doodleClient = doodleClient;
 
     this.state = {
       boards: [],
