@@ -67,13 +67,14 @@
   };
 
   BoardClient.prototype.fixedBoardsHeight = function(fixedHeight) {
-    this.state.boards && this.state.boards.forEach((board, index) => {
+    var that = this;
+    this.state.boards && this.state.boards.forEach(function(board) {
       if (board.y > app.height + 8) {
-        this.state.boards.shift();
+        that.state.boards.shift();
       } else {
-        this.clearImage(board.x, board.y);
+        that.clearImage(board.x, board.y);
         board.y += fixedHeight;
-        this.renderImage(board.x, board.y);
+        that.renderImage(board.x, board.y);
       }
     });
   };
