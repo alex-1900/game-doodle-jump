@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1" />
+    <meta content="telephone=no,email=no" name="format-detection" />
+    <meta name="renderer" content="webkit" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta content="yes" name="apple-touch-fullscreen" />
+    <link rel="shortcut icon" type="images/x-icon" href="./favicon.ico">
+    <title>Doodle Jump</title>
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+
+    <script async defer src="./App/Lib/buttons.js"></script>
+
+    <script src="./App/Lib/es6-promise.auto.min.js"></script>
+    <script src="./App/Lib/html2canvas.min.js"></script>
+    <script src="./App/Selector.js"></script>
+    <script src="./App/compatibles.js"></script>
+    <script src="./App/AbstructClient.js"></script>
+    <script src="./App/ImageLoader.js"></script>
+    <script src="./App/Application.js"></script>
+
+    <script src="./src/clients/BoardClient.js"></script>
+    <script src="./src/clients/DoodleClient.js"></script>
+    <script src="./src/clients/ComputeClient.js"></script>
+    <script src="./src/events.js"></script>
+    <script src="./src/boards.js"></script>
+
+    <script>
+        console.info('Jet Escaper Github Page:\r\nhttps://github.com/speed-sonic/game-jet-escaper');
+        console.info('Author:\r\nAlex(omytty.alex@gmail.com)');
+    </script>
+</head>
+<body class="full position-fixed">
+    <div id="viewer" class="viewer full">
+        <!-- <h1>Doodle Jump</h1> -->
+        <h1><img src="./resource/images/header.png" /></h1>
+        <button id="play" class="play" type="button"></button>
+        <p id="loader"></p>
+        <p>version 1.0.0</p>
+        <p>
+            <a class="github-button" target="_blank" href="https://github.com/speed-sonic" data-color-scheme="no-preference: light; light: light; dark: light;">Follow</a>
+            <a class="github-button" target="_blank" href="https://github.com/speed-sonic/game-doodle-jump" data-color-scheme="no-preference: light; light: light; dark: light;" data-icon="octicon-star">Star</a>
+        </p>
+    </div>
+
+    <div id="over" class="over position-fixed full d-none">
+        <div class="madel">
+            <div class="title">
+                <img src="./resource/images/gameover.png" id="gameover-image" class="gameover" />
+            </div>
+            <button id="replay" class="replay" type="button"></button>
+        </div>
+    </div>
+
+    <div id="wrapper" class="viewer d-none">
+        <!-- The application wrapper -->
+    </div>
+
+    <script>
+
+        var clientWidth = document.body.clientWidth;
+        var clientHeight = document.body.clientHeight;
+        var viewer = document.getElementById('viewer');
+        var wrapper = document.getElementById('wrapper');
+        var play = document.getElementById('play');
+        var over = document.getElementById('over');
+        var replay = document.getElementById('replay');
+        var loader = document.getElementById('loader');
+        wrapper.style.display = 'none';
+        window.app = new Application(wrapper, clientWidth, clientHeight);
+        app.run();
+
+        play.onclick = function() {
+
+            var neededImages = {
+                doodleLeft: './resource/images/doodle-left.png',
+                doodleRight: './resource/images/doodle-right.png',
+                board: './resource/images/board.png',
+                replayButton: './resource/images/replay-button.png',
+            };
+            var imageLoader = new ImageLoader(neededImages);
+
+            // 渲染加载条
+            var onResourceLoading = function() {
+                var length = Object.keys(neededImages).length;
+                var piece = 100 / length;
+                var count = 0;
+                return function (image, key) {
+                    count += piece;
+                    var showcount = Math.ceil(count);
+                    loader.innerText = showcount + '%';
+                };
+            }
+            imageLoader.onEachLoaded(onResourceLoading());
+
+            var startApp = function(images) {
+                over.style.display = 'none';
+                viewer.style.display = 'none';
+                wrapper.style.display = 'block';
+
+                app.set('images', images);
+
+                var boardClient = app.addClient(function(id) {
+                    return new BoardClient(id, getBoards());
+                });
+
+                var doodleClient = app.addClient(function(id) {
+                    return new DoodleClient(id);
+                });
+
+                var computeClient = app.addClient(function(id) {
+                    return new ComputeClient(id, boardClient, doodleClient);
+                });
+
+                computeClient.onGameOver(function() {
+                    over.style.display = 'block';
+                });
+
+                document.dispatchEvent(events.appStart);
+
+                replay.onclick = function() {
+                    startApp(images);
+                };
+            };
+            imageLoader.load().then(startApp);
+        };
+    </script>
+</body>
+</html>

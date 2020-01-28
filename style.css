@@ -1,0 +1,80 @@
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    box-sizing: border-box;
+    font: 14px Helvetica Neue,Helvetica,Arial,Microsoft Yahei,Hiragino Sans GB,Heiti SC,WenQuanYi Micro Hei,sans-serif;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.position-fixed {
+    position: fixed;
+}
+
+.full {
+    width: 100%;
+    height: 100%;
+}
+
+.d-none {
+    display: none;
+}
+
+/* 具体的 */
+
+.viewer {
+    background: url('./resource/images/game-background.png');
+    background-size:100% 100%;
+}
+
+.viewer h1 {
+    font-size: 3rem;
+    padding-top: 30%;
+    text-align: center;
+    color: rgb(184, 53, 53);
+}
+
+button.play {
+    background: url('./resource/images/play-button.png');
+    background-size:100% 100%;
+    width: 139px;
+    height: 50px;
+    margin: 30% auto auto auto;
+    position: relative;
+    margin-left: -70px;
+    left: 50%;
+}
+
+.viewer p {
+    padding-top: 2rem;
+    text-align: center;
+    font-size: 1.2rem;
+    color: rgb(145, 77, 77);
+}
+
+.over .madel {
+    position: relative;
+    top: 50%;
+    margin-top: -70px;
+}
+
+.over .madel .title img {
+    position: relative;
+    left: 50%;
+    margin-left: -103px;
+}
+.over .madel button.replay {
+    background: url('./resource/images/replay-button.png');
+    background-size:100% 100%;
+    width: 100px;
+    height: 36px;
+    position: relative;
+    left: 50%;
+    margin-top: 40px;
+    margin-left: -50px;
+}
