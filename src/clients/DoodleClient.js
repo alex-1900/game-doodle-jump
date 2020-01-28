@@ -21,7 +21,7 @@
       fixed: 0
     };
 
-    window.addEventListener('devicemotion', this.deviceMotion.bind(this));
+    window.ondevicemotion = this.deviceMotion.bind(this);
   }
 
   extend(DoodleClient, AbstructClient);
