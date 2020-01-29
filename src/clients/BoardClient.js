@@ -56,7 +56,7 @@
   };
 
   BoardClient.prototype.clearImage = function(x, y) {
-    this.ctx.clearRect(x, y, 50, 12);
+    this.ctx.clearRect(x-3, y-3, 56, 18);
   };
 
   BoardClient.prototype.push = function() {
@@ -72,7 +72,7 @@
   BoardClient.prototype.fixedBoardsHeight = function(fixedHeight) {
     var that = this;
     this.state.boards && this.state.boards.forEach(function(board) {
-      if (board.y > app.height + 8) {
+      if (board.y > app.height) {
         that.state.boards.shift();
       } else {
         that.clearImage(board.x, board.y);
