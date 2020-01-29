@@ -74,12 +74,14 @@
 
         var clientWidth = document.body.clientWidth;
         var clientHeight = document.body.clientHeight;
+
         var viewer = document.getElementById('viewer');
         var wrapper = document.getElementById('wrapper');
         var play = document.getElementById('play');
         var over = document.getElementById('over');
         var replay = document.getElementById('replay');
         var loader = document.getElementById('loader');
+
         wrapper.style.display = 'none';
         window.app = new Application(wrapper, clientWidth, clientHeight);
         app.run();
@@ -91,7 +93,7 @@
                 doodleRight: './resource/images/doodle-right.png',
                 board: './resource/images/board.png',
                 replayButton: './resource/images/replay-button.png',
-                background: './resource/images/game-background.png',
+                background: './resource/images/game-background.png'
             };
             var imageLoader = new ImageLoader(neededImages);
 

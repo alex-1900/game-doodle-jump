@@ -9,10 +9,13 @@
     var images = app.get('images');
     this.image = images['board'];
     this.boards = boards;
+    this.mapStore = [];
 
     this.state = {
       boards: [],
-      prevY: app.height
+      prevY: app.height,
+      currentMapNumber: 0,
+      fetchable: false
     };
 
     this.push();
